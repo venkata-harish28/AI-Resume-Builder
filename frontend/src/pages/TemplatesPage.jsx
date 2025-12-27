@@ -1,65 +1,28 @@
-import { useState } from "react";
-import UpToSkillsImg from '../assets/UptoSkills.webp';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import UpToSkillsImg from "../assets/UptoSkills.webp";
 
-// 1. Ensure onNavigateToBuilder is in the props destructuring
-function TemplatesPage({ onNavigateToBuilder, onNavigateHome }) {
+function TemplatesPage() {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [hoveredTemplate, setHoveredTemplate] = useState(null);
+  const base = import.meta.env.BASE_URL || "/";
 
   const templates = [
-    {
-      id: 1,
-      name: "Chronological",
-      category: "traditional",
-      desc: "Traditional timeline format",
-      image: "templates/chronological.png", 
-      color: "from-blue-500 to-blue-600",
-      features: ["Clean layout", "Experience focused", "ATS friendly"],
-    },
-    {
-      id: 2,
-      name: "Functional",
-      category: "modern",
-      desc: "Skills-based layout",
-      image: "/templates/chronological.png", 
-      color: "from-indigo-500 to-indigo-600",
-      features: ["Skills focused", "Modern design", "Career switch friendly"],
-    },
-    {
-      id: 3,
-      name: "Creative",
-      category: "creative",
-      desc: "Bold and unique design",
-      image: "/templates/chronological.png",
-      color: "from-pink-500 to-rose-600",
-      features: ["Eye-catching", "Design showcase", "Creative roles"],
-    },
-    {
-      id: 4,
-      name: "Modern",
-      category: "modern",
-      desc: "Contemporary professional",
-      image: "/templates/chronological.png",
-      color: "from-cyan-600 to-teal-600",
-      features: ["Minimalist", "Professional", "Clean UI"],
-    },
-    {
-      id: 5,
-      name: "Minimalist",
-      category: "traditional",
-      desc: "Clean and simple",
-      image: "/templates/chronological.png",
-      color: "from-slate-400 to-slate-600",
-      features: ["Ultra clean", "Simple design", "Fast loading"],
-    },
-    {
-      id: 6,
-      name: "Executive",
-      category: "executive",
-      desc: "Senior-level format",
-      image: "/templates/chronological.png",
-      color: "from-amber-600 to-orange-700",
-      features: ["Leadership focused", "Executive summary", "Premium look"],
-    },
+    { id: 1, name: "Atlantic Blue", category: "modern", image: `${base}templates/chronological.png` },
+    { id: 2, name: "Classic", category: "traditional", image: `${base}templates/functional.png` },
+    { id: 3, name: "Corporate", category: "traditional", image: `${base}templates/creative.png` },
+    { id: 4, name: "Modern Pro", category: "modern", image: `${base}templates/modern.png` },
+    { id: 5, name: "Executive", category: "executive", image: `${base}templates/minimalist.png` },
+    { id: 6, name: "Creative Edge", category: "creative", image: `${base}templates/executive.png` },
+  ];
+
+  const categories = [
+    { id: "all", label: "All Templates" },
+    { id: "traditional", label: "Traditional" },
+    { id: "modern", label: "Modern" },
+    { id: "creative", label: "Creative" },
+    { id: "executive", label: "Executive" },
   ];
 
   const filteredTemplates =
@@ -67,99 +30,106 @@ function TemplatesPage({ onNavigateToBuilder, onNavigateHome }) {
       ? templates
       : templates.filter((t) => t.category === selectedCategory);
 
-  return (
-    <div className="min-h-screen bg-white text-[#1a2e52] flex flex-col">
-      {/* NAVBAR */}
-      <nav className="sticky top-0 z-50 py-4 border-b border-gray-200 bg-white/95 backdrop-blur-md">
-        <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between">
-           <div className="flex flex-col gap-1 cursor-pointer">
-               <div onClick={onNavigateHome} className="text-[1.5rem] font-extrabold tracking-[0.5px]">
-                   <img src={UpToSkillsImg} alt="UpToSkills Logo" className="w-[150px]" />
-                </div>
-           </div>
+  const handleCreateResume = (template) => {
+    navigate("/builder", { state: { template } });
+  };
 
-          <button
-            onClick={onNavigateHome}
-            className="flex items-center gap-2 px-6 py-3 border border-[#0077cc] text-[#0077cc] rounded-lg font-semibold hover:bg-[#0077cc]/5 transition-all duration-300"
-          >
-            ← Back Home
+  return (
+    <div className="min-h-screen bg-white">
+      {/* NAVBAR */}
+      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 py-4 shadow-sm">
+        <div className="max-w-7xl mx-auto px-8 flex items-center justify-between">
+          <button onClick={() => navigate("/")} className="hover:opacity-80 transition-opacity">
+            <img src={UpToSkillsImg} alt="UptoSkills" className="h-10" />
           </button>
+
+          <div>
+            <button
+              onClick={() => navigate("/")}
+              className="flex items-center gap-2 px-5 py-2.5 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-gray-400 hover:text-gray-800 transition-all duration-300"
+            >
+              ← Back Home
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* MAIN SECTION */}
-      <section className="flex-1 px-8 py-16 bg-[#fafafa]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="mb-12 text-center">
-            <h1 className="mb-4 text-5xl font-extrabold lg:text-6xl text-[#1a2e52]">
-              Choose Your{" "}
-              <span className="bg-gradient-to-r from-[#e65100] to-[#0077cc] bg-clip-text text-transparent">
-                Perfect Template
-              </span>
-            </h1>
-            <p className="text-xl text-gray-600">
-              Professionally designed, ATS-friendly resume templates
-            </p>
+      {/* MAIN CONTENT */}
+      <section className="px-8 py-12">
+        <div className="max-w-7xl mx-auto">
+          {/* HEADER */}
+          <div className="text-center mb-12">
+            <h1 className="text-5xl font-bold text-gray-900 mb-4">Choose Your Template</h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Select a professionally designed template to get started</p>
           </div>
 
           {/* CATEGORY FILTER */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {["all", "traditional", "modern", "creative", "executive"].map(
-              (cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
-                    selectedCategory === cat
-                      ? "bg-gradient-to-r from-[#e65100] to-[#f4511e] text-white shadow-md"
-                      : "bg-white border border-gray-200 text-gray-600 hover:border-[#0077cc] hover:text-[#0077cc]"
-                  }`}
-                >
-                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                </button>
-              )
-            )}
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${
+                  selectedCategory === cat.id ? "bg-blue-600 text-white shadow-md" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
 
-          {/* GRID */}
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {/* TEMPLATES GRID */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredTemplates.map((template) => (
               <div
                 key={template.id}
-                className="group bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-[#0077cc] transition-all duration-300 hover:-translate-y-2 shadow-sm hover:shadow-xl"
+                onMouseEnter={() => setHoveredTemplate(template.id)}
+                onMouseLeave={() => setHoveredTemplate(null)}
+                onClick={() => handleCreateResume(template)}
+                className="group relative cursor-pointer"
               >
-                <div className={`h-64 bg-gradient-to-br ${template.color} p-4`}>
-                  <img
-                    src={template.image}
-                    alt={template.name}
-                    className="object-cover w-full h-full shadow-2xl rounded-xl"
-                  />
-                </div>
-
-                <div className="p-6">
-                  <h3 className="mb-2 text-2xl font-bold text-[#1a2e52]">
-                    {template.name}
-                  </h3>
-                  <p className="mb-4 text-gray-500">{template.desc}</p>
-
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {template.features.map((feature, idx) => (
-                      <span
-                        key={idx}
-                        className="text-xs bg-[#0077cc]/10 text-[#0077cc] px-3 py-1 rounded-full border border-[#0077cc]/10 font-medium"
-                      >
-                        {feature}
-                      </span>
-                    ))}
+                <div
+                  className={`bg-white rounded-xl shadow-lg border-2 overflow-hidden transition-all duration-300 ${
+                    hoveredTemplate === template.id ? "border-blue-600 shadow-2xl -translate-y-2" : "border-gray-200"
+                  }`}
+                >
+                  <div className="relative h-[400px] bg-gray-50 overflow-hidden">
+                    <img
+                      src={template.image}
+                      alt={template.name}
+                      className="w-full h-full object-cover object-top"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                        const parent = e.target.parentElement;
+                        parent.innerHTML = `
+                          <div class="w-full h-full bg-white p-8 flex flex-col gap-4">
+                            <div class="h-8 bg-gray-800 rounded"></div>
+                            <div class="h-4 bg-gray-300 rounded w-3/4"></div>
+                            <div class="h-4 bg-gray-300 rounded w-1/2"></div>
+                            <div class="flex gap-4 mt-4">
+                              <div class="flex-1 h-32 bg-gray-200 rounded"></div>
+                              <div class="flex-1 h-32 bg-gray-200 rounded"></div>
+                            </div>
+                            <div class="h-4 bg-gray-300 rounded"></div>
+                            <div class="h-4 bg-gray-300 rounded w-5/6"></div>
+                            <div class="h-4 bg-gray-300 rounded w-2/3"></div>
+                            <div class="flex gap-2 mt-4">
+                              <div class="h-16 w-16 bg-gray-400 rounded-full"></div>
+                              <div class="flex-1 space-y-2">
+                                <div class="h-3 bg-gray-300 rounded"></div>
+                                <div class="h-3 bg-gray-300 rounded w-3/4"></div>
+                              </div>
+                            </div>
+                          </div>
+                        `;
+                      }}
+                    />
                   </div>
 
-                  {/* 2. Update the button to use onNavigateToBuilder */}
-                  <button
-                    onClick={() => onNavigateToBuilder(template)}
-                    className="w-full px-6 py-3 bg-gradient-to-r from-[#e65100] to-[#f4511e] text-white font-bold rounded-lg hover:shadow-lg hover:brightness-110 transition-all duration-300"
-                  >
-                    Create Resume →
-                  </button>
+                  <div className="p-4 bg-white border-t border-gray-200">
+                    <h3 className="text-lg font-bold text-gray-900 text-center">{template.name}</h3>
+                  </div>
                 </div>
               </div>
             ))}
@@ -167,8 +137,11 @@ function TemplatesPage({ onNavigateToBuilder, onNavigateHome }) {
         </div>
       </section>
 
-      <footer className="px-8 py-8 text-sm text-center text-gray-500 bg-white border-t border-gray-100">
-        © {new Date().getFullYear()} UptoSkills. All rights reserved.
+      {/* FOOTER */}
+      <footer className="bg-gray-50 border-t border-gray-200 px-8 py-8 mt-16">
+        <div className="max-w-7xl mx-auto text-center text-gray-600 text-sm">
+          <p>© {new Date().getFullYear()} UptoSkills. All rights reserved.</p>
+        </div>
       </footer>
     </div>
   );

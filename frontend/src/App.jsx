@@ -1,53 +1,33 @@
-import { useState } from 'react'
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
 import TemplatesPage from './pages/TemplatesPage'
-import TemplateEditor from './pages/TemplateEditor' // Import is already here
+import BuilderPage from './pages/Builder'
+import LoginPage from './pages/login'
+import RegisterPage from './pages/Register'
+import ForgotPasswordPage from './pages/ForgotPassword'
+import TemplateEditor from './pages/TemplateEditor'
+import NotFound from './pages/NotFound'
 import './App.css'
 
+// NOTE: ensure `react-router-dom` is installed in your frontend dependencies
+
 function App() {
-  const [currentPage, setCurrentPage] = useState('home')
-  const [selectedTemplate, setSelectedTemplate] = useState(null)
-
-  const navigateToHome = () => {
-    setCurrentPage('home')
-  }
-
-  const navigateToTemplates = () => {
-    setCurrentPage('templates')
-  }
-
-  // This function is triggered by the "Create Resume" button in TemplatesPage
-  const navigateToBuilder = (template) => {
-    setSelectedTemplate(template)
-    setCurrentPage('builder')
-    console.log('Navigating to builder with template:', template)
-  }
-
   return (
-    <div className="app">
-      {/* 1. HOME PAGE */}
-      {currentPage === 'home' && (
-        <Home
-          onNavigateToTemplates={navigateToTemplates}
-        />
-      )}
-
-      {/* 2. TEMPLATES PAGE */}
-      {currentPage === 'templates' && (
-        <TemplatesPage 
-          onNavigateHome={navigateToHome}
-          onNavigateToBuilder={navigateToBuilder}
-        />
-      )}
-
-      {/* 3. RESUME BUILDER (TEMPLATE EDITOR) PAGE */}
-      {currentPage === 'builder' && (
-        <TemplateEditor 
-          template={selectedTemplate} 
-          onNavigateHome={navigateToTemplates} // Allows user to go back to gallery
-        />
-      )}
-    </div>
+    <BrowserRouter>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/templates" element={<TemplatesPage />} />
+          <Route path="/templates/:id" element={<TemplateEditor />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/builder" element={<BuilderPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   )
 }
 

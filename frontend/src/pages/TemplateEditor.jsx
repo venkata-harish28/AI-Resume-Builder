@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import UpToSkillsImg from '../assets/UptoSkills.webp';
+import { useNavigate } from 'react-router-dom'
 
-function TemplateEditor({ template, onNavigateHome }) {
+function TemplateEditor({ template }) {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -58,15 +59,18 @@ function TemplateEditor({ template, onNavigateHome }) {
       <nav className="sticky top-0 z-50 py-4 border-b border-gray-200 bg-white/95 backdrop-blur-md">
         <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div onClick={onNavigateHome} className="text-[1.5rem] font-extrabold tracking-[0.5px]">
-                               <img src={UpToSkillsImg} alt="UpToSkills Logo" className="w-[150px]" />
-                            </div>
-            <div className="hidden w-px h-8 bg-gray-200 md:block"></div>
-            <span className="hidden text-gray-500 md:inline">Editing: <span className="text-[#0077cc] font-semibold">{template.name}</span> Template</span>
+            <button 
+              onClick={() => navigate('/')}
+              className="text-2xl font-extrabold tracking-wide font-['Space_Grotesk'] hover:opacity-80 transition-opacity"
+            >
+              UPTO<span className="text-[#00d9ff]">SKILLS</span>
+            </button>
+            <div className="hidden md:block h-8 w-px bg-white/20"></div>
+            <span className="hidden md:inline text-gray-400">Editing: <span className="text-[#00d9ff] font-semibold">{template?.name || 'Custom'}</span> Template</span>
           </div>
           <button 
-            onClick={onNavigateHome}
-            className="flex items-center gap-2 px-6 py-3 border border-gray-200 text-[#1a2e52] rounded-lg font-semibold transition-all duration-300 hover:border-[#0077cc] hover:text-[#0077cc] hover:bg-gray-50"
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 px-6 py-3 border border-white/10 text-white rounded-lg font-semibold transition-all duration-300 hover:border-[#00d9ff] hover:text-[#00d9ff]"
           >
             <i className="fas fa-times"></i>
             Exit
@@ -377,8 +381,8 @@ function TemplateEditor({ template, onNavigateHome }) {
       <div className="fixed bottom-0 left-0 right-0 z-50 px-8 py-4 border-t border-gray-200 bg-white/95 backdrop-blur-md">
         <div className="max-w-[1400px] mx-auto flex items-center justify-between">
           <button 
-            onClick={onNavigateHome}
-            className="px-6 py-3 border border-gray-200 text-[#1a2e52] rounded-lg font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all"
+            onClick={() => navigate('/')}
+            className="px-6 py-3 border border-white/10 text-white rounded-lg font-semibold hover:border-white/20 transition-all"
           >
             Save as Draft
           </button>
