@@ -50,7 +50,6 @@ export default function Register() {
       <Toaster position="top-right" reverseOrder={false} />
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-950 to-slate-900 px-6 select-none">
         <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-2xl">
-          {/* Left Form Section */}
           <div className="flex flex-col justify-center px-8 md:px-14 py-12">
             <div className="text-center mb-6">
               <h1 className="text-2xl font-semibold text-gray-800">
@@ -80,7 +79,6 @@ export default function Register() {
               }}
               className="space-y-4"
             >
-              {/* Username */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
                   Username
@@ -94,7 +92,6 @@ export default function Register() {
                 />
               </div>
 
-              {/* Email */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
                   Email
@@ -108,7 +105,6 @@ export default function Register() {
                 />
               </div>
 
-              {/* Password */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
                   Password
@@ -121,7 +117,6 @@ export default function Register() {
                   className="w-full px-4 py-2.5 rounded-lg border border-gray-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-              {/* Confirm Password */}
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-1">
                   Confirm Password
@@ -135,7 +130,6 @@ export default function Register() {
                 />
               </div>
 
-              {/* Button */}
               <button
                 type="submit"
                 disabled={loading}
@@ -151,14 +145,12 @@ export default function Register() {
               </button>
             </form>
 
-            {/* Divider */}
             <div className="flex items-center my-6">
               <div className="flex-grow h-px bg-gray-300" />
               <span className="px-3 text-xs text-gray-400 uppercase">or</span>
               <div className="flex-grow h-px bg-gray-300" />
             </div>
 
-            {/* Google Signup */}
             <button className="flex items-center justify-center gap-3 py-2.5 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
               <img
                 src={images.google || "/google.png"}
@@ -178,7 +170,6 @@ export default function Register() {
             </p>
           </div>
 
-          {/* Right Image Section */}
           <div className="w-full h-full hidden md:flex justify-center items-center">
             <img
               src={images.signup || "/signup.png"}

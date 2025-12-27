@@ -2,25 +2,24 @@
 
 ---
 
-### **December 18, 2025**
-- Research AI functionality for resume building.
-- Explore and plan the user interface design.
-- Investigate backend architecture and requirements.
+### **December 24, 2025**
+- Added the **How It Works** section
+- Added a **favicon** to the project
+- Updated the **webpage title** in the HTML file
 
 ---
 
-### **December 19, 2025**
-- Prepare technical documentation on AI implementation.
-- Create a document for the UI workflow and layout.
-- Draft backend design and specifications.
+### **December 25, 2025**
+- Added navigation functionality for **Login** and **Signup** buttons to redirect users to their respective pages
 
 ---
 
-### **December 20, 2025**
-- Begin integration of AI features into the resume builder.
-- Identify and list backend files needed for implementation.
-- Work on Figma designs for login and admin sections.
-- Establish frontend and backend project structure.
-- Set up MongoDB and configure connection strings.
+### **December 26, 2025**
+- Added animations to the **How It Works** section to improve visual flow and user experience
+
+---
+
+### **December 27, 2025**
+- Enhanced the **Login** and **Signup** page UI for better usability and visual consistency
 
 ---
